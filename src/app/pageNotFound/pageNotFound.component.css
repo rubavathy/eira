@@ -1,0 +1,38 @@
+svg path.star {
+  animation: twinkle 2s linear infinite alternate;
+}
+
+@keyframes twinkle {
+  0% {
+    opacity: 0;
+  }
+  50% {
+    opacity: 1;
+  }
+  100%{
+    opacity: 0;
+  }
+}
+
+
+svg path.error {
+  animation: write404 3s linear 1 alternate;
+  fill: #020065
+}
+
+@keyframes write404 {
+  0% {
+    stroke-dashoffset: 442.308;
+    stroke-dasharray: 442.308;
+    fill: #02006500
+  }
+
+  50% {
+    stroke-dashoffset: 0;
+    fill: #020065a2
+  }
+
+  100% {
+    fill: #020065
+  }
+}

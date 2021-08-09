@@ -1,0 +1,14 @@
+.remarks-style {
+  height: 40px !important;
+}
+
+:host ::ng-deep .mat-radio-container {
+  width: 17px;
+}
+
+.mb-0 {
+  margin-bottom: 0;
+}
+.mb-2 {
+  margin-top: 2rem;
+}

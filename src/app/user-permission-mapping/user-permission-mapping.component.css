@@ -1,0 +1,33 @@
+.example-viewport {
+  height: 200px;
+  width: 200px;
+  border: 1px solid black;
+}
+
+.example-item {
+  height: 50px;
+}
+.role-permissions {
+  background-color: rgba(0, 0, 0, 0.12);
+  border-radius: 0.5rem;
+  border: 2px solid grey;
+}
+.permission-box {
+  border-bottom: 2px solid grey;
+}
+.border-left {
+  padding-left: 0.5rem;
+  border-left: 2px solid grey;
+}
+.box-height {
+  min-height: 2rem;
+  padding: 0.5rem;
+}
+
+.top-height {
+  margin-top: 0.1rem;
+}
+
+.button-row {
+  margin-top: 2rem;
+}

@@ -1,0 +1,125 @@
+<div class="grid">
+  <mat-grid-list cols="7" rowHeight="4:1" [gutterSize]="0">
+    <mat-grid-tile><div class="content grid-heading">Given</div></mat-grid-tile>
+    <mat-grid-tile
+      ><div class="content grid-heading">Permission Name</div></mat-grid-tile
+    >
+    <mat-grid-tile
+      ><div class="content grid-heading">Category</div></mat-grid-tile
+    >
+    <mat-grid-tile><div class="content grid-heading">View</div></mat-grid-tile>
+    <mat-grid-tile><div class="content grid-heading">Edit</div></mat-grid-tile>
+    <mat-grid-tile><div class="content grid-heading">Add</div></mat-grid-tile>
+    <mat-grid-tile
+      ><div class="content grid-heading">Delete</div></mat-grid-tile
+    >
+
+    <div *ngFor="let permission of permissions">
+      <mat-grid-tile>
+        <div class="content">
+          <mat-slide-toggle
+            [checked]="permissionsList.includes(permission.permissionId)"
+            (change)="onAddPermission(permission.permissionId)"
+          ></mat-slide-toggle>
+        </div>
+      </mat-grid-tile>
+      <mat-grid-tile>
+        <div class="content">
+          {{ permission.permissionName }}
+        </div>
+      </mat-grid-tile>
+      <mat-grid-tile
+        ><div class="content">{{ permission.category }}</div>
+      </mat-grid-tile>
+
+      <mat-grid-tile>
+        <div class="content">
+          <button
+            fxLayout="row"
+            fxLayoutAlign="space-evenly center"
+            *ngIf="permission.view"
+            class="btn-allow"
+          >
+            <mat-icon class="green">done </mat-icon>
+            <div fxShow fxHide.xs class="permission-text green">Allow</div>
+          </button>
+          <button
+            fxLayout="row"
+            fxLayoutAlign="space-evenly center"
+            *ngIf="!permission.view"
+            class="btn-denied"
+          >
+            <mat-icon class="red">close </mat-icon>
+            <div fxShow fxHide.xs class="permission-text red">Denied</div>
+          </button>
+        </div>
+      </mat-grid-tile>
+      <mat-grid-tile>
+        <div class="content">
+          <button
+            fxLayout="row"
+            fxLayoutAlign="space-evenly center"
+            *ngIf="permission.add"
+            class="btn-allow"
+          >
+            <mat-icon class="green">done </mat-icon>
+            <div fxShow fxHide.xs class="permission-text green">Allow</div>
+          </button>
+          <button
+            fxLayout="row"
+            fxLayoutAlign="space-evenly center"
+            *ngIf="!permission.add"
+            class="btn-denied"
+          >
+            <mat-icon class="red">close </mat-icon>
+            <div fxShow fxHide.xs class="permission-text red">Denied</div>
+          </button>
+        </div>
+      </mat-grid-tile>
+      <mat-grid-tile
+        ><div class="content">
+          <button
+            fxLayout="row"
+            fxLayoutAlign="space-evenly center"
+            *ngIf="permission.edit"
+            class="btn-allow"
+          >
+            <mat-icon class="green">done </mat-icon>
+            <div fxShow fxHide.xs class="permission-text green">Allow</div>
+          </button>
+          <button
+            fxLayout="row"
+            fxLayoutAlign="space-evenly center"
+            *ngIf="!permission.edit"
+            class="btn-denied"
+          >
+            <mat-icon class="red">close </mat-icon>
+            <div fxShow fxHide.xs class="permission-text red">Denied</div>
+          </button>
+        </div>
+      </mat-grid-tile>
+      <mat-grid-tile
+        ><div class="content">
+          <button
+            fxLayout="row"
+            fxLayoutAlign="space-evenly center"
+            *ngIf="permission.delete"
+            class="btn-allow"
+          >
+            <mat-icon class="green">done </mat-icon>
+            <div fxShow fxHide.xs class="permission-text green">Allow</div>
+          </button>
+          <button
+            fxLayout="row"
+            fxLayoutAlign="space-evenly center"
+            *ngIf="!permission.delete"
+            class="btn-denied"
+          >
+            <mat-icon class="red">close </mat-icon>
+            <div fxShow fxHide.xs class="permission-text red">Denied</div>
+          </button>
+        </div>
+      </mat-grid-tile>
+    </div>
+  </mat-grid-list>
+</div>

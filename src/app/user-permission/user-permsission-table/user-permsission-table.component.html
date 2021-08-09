@@ -1,0 +1,157 @@
+<div class="mat-elevation-z8">
+  <div fxLayout fxLayoutAlign="end center">
+    <mat-form-field fxFlex="40%">
+      <input
+        (keyup)="doFilter($event.target.value)"
+        matInput
+        type="text"
+        placeholder="Filter"
+      />
+    </mat-form-field>
+  </div>
+  <table mat-table class="full-width-table" matSort [dataSource]="permissions">
+    <!-- <ng-container matColumnDef="permissionId">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header>Permission Id</th>
+      <td mat-cell *matCellDef="let permission">
+        {{ permission.permissionId }}
+      </td>
+    </ng-container> -->
+    <ng-container matColumnDef="permissionName">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header>Permission Name</th>
+      <td mat-cell *matCellDef="let permission">
+        {{ permission.permissionName }}
+      </td>
+    </ng-container>
+
+    <ng-container matColumnDef="category">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header>Category</th>
+      <td mat-cell *matCellDef="let permission">{{ permission.category }}</td>
+    </ng-container>
+
+    <ng-container matColumnDef="view">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header>Allow View</th>
+      <td mat-cell *matCellDef="let permission">
+        <button
+          fxLayout="row"
+          fxLayoutAlign="space-evenly center"
+          *ngIf="permission.view"
+          class="btn-allow"
+        >
+          <mat-icon class="green">done </mat-icon>
+          <div fxShow fxHide.xs class="permission-text green">Allow</div>
+        </button>
+        <button
+          fxLayout="row"
+          fxLayoutAlign="space-evenly center"
+          *ngIf="!permission.view"
+          class="btn-denied"
+        >
+          <mat-icon class="red">close </mat-icon>
+          <div fxShow fxHide.xs class="permission-text red">Denied</div>
+        </button>
+      </td>
+    </ng-container>
+
+    <ng-container matColumnDef="add">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header>Allow Add</th>
+      <td mat-cell *matCellDef="let permission">
+        <button
+          fxLayout="row"
+          fxLayoutAlign="space-evenly center"
+          *ngIf="permission.add"
+          class="btn-allow"
+        >
+          <mat-icon class="green">done </mat-icon>
+          <div fxShow fxHide.xs class="permission-text green">Allow</div>
+        </button>
+        <button
+          fxLayout="row"
+          fxLayoutAlign="space-evenly center"
+          *ngIf="!permission.add"
+          class="btn-denied"
+        >
+          <mat-icon class="red">close </mat-icon>
+          <div fxShow fxHide.xs class="permission-text red">Denied</div>
+        </button>
+      </td>
+    </ng-container>
+
+    <ng-container matColumnDef="edit">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header>Allow Edit</th>
+      <td mat-cell *matCellDef="let permission">
+        <button
+          fxLayout="row"
+          fxLayoutAlign="space-evenly center"
+          *ngIf="permission.edit"
+          class="btn-allow"
+        >
+          <mat-icon class="green">done </mat-icon>
+          <div fxShow fxHide.xs class="permission-text green">Allow</div>
+        </button>
+        <button
+          fxLayout="row"
+          fxLayoutAlign="space-evenly center"
+          *ngIf="!permission.edit"
+          class="btn-denied"
+        >
+          <mat-icon class="red">close </mat-icon>
+          <div fxShow fxHide.xs class="permission-text red">Denied</div>
+        </button>
+      </td>
+    </ng-container>
+
+    <ng-container matColumnDef="delete">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header>Allow Delete</th>
+      <td mat-cell *matCellDef="let permission">
+        <button
+          fxLayout="row"
+          fxLayoutAlign="space-evenly center"
+          *ngIf="permission.delete"
+          class="btn-allow"
+        >
+          <mat-icon class="green">done </mat-icon>
+          <div fxShow fxHide.xs class="permission-text green">Allow</div>
+        </button>
+        <button
+          fxLayout="row"
+          fxLayoutAlign="space-evenly center"
+          *ngIf="!permission.delete"
+          class="btn-denied"
+        >
+          <mat-icon class="red">close </mat-icon>
+          <div fxShow fxHide.xs class="permission-text red">Denied</div>
+        </button>
+      </td>
+    </ng-container>
+
+    <ng-container matColumnDef="action">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header>Edit</th>
+      <td mat-cell *matCellDef="let permission">
+        <button
+          mat-icon-button
+          matTooltip="Click to Edit"
+          class="iconbutton"
+          (click)="onEditPermission(permission)"
+        >
+          <mat-icon aria-label="Edit">edit</mat-icon>
+        </button>
+      </td>
+    </ng-container>
+
+    <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+    <tr
+      mat-row
+      *matRowDef="let row; let even = even; columns: displayedColumns"
+      [ngClass]="{ gray: even }"
+    ></tr>
+  </table>
+
+  <mat-paginator
+    #paginator
+    [length]="permissions.data.length"
+    [pageIndex]="0"
+    [pageSize]="10"
+    [pageSizeOptions]="[5, 10, 20, 25]"
+  >
+  </mat-paginator>
+</div>

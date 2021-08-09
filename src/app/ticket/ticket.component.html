@@ -1,0 +1,103 @@
+<div class="container">
+  <form [formGroup]="ticketForm" novalidate (ngSubmit)="onSubmit()">
+    <input type="hidden" formControlName="ticketId" />
+    <!-- Field for SiteName -->
+    <mat-form-field >
+      <mat-label>Site Name</mat-label>
+      <mat-select
+        formControlName="siteId"
+        required
+        (selectionChange)="getEquipmentsBySiteId($event.value)"
+      >
+        <mat-option *ngFor="let site of sites" [value]="site.siteId">
+          {{ site.siteName }}
+        </mat-option>
+       
+      </mat-select>
+
+      <mat-error *ngIf="ticketForm.controls['siteId'].hasError('required')">
+        Please select <strong> Site!</strong>
+      </mat-error>
+    </mat-form-field>
+
+    <!-- Field for Equipment -->
+
+    <mat-form-field >
+      <mat-label>Equipment</mat-label>
+      <mat-select formControlName="equipmentIds" multiple required>
+        <mat-option *ngFor="let equipment of equipments" [value]="equipment.equipmentId">
+          {{ equipment.displayName }}
+        </mat-option>
+      </mat-select>
+
+      <mat-error *ngIf="ticketForm.controls['equipmentIds'].hasError('required')">
+        Please select specific <strong>Equipments</strong> in the Site!
+      </mat-error>
+    </mat-form-field>
+
+    <mat-form-field >
+      <mat-label>Ticket Type</mat-label>
+      <mat-select formControlName="ticketType"
+      required
+      (selectionChange)="getTicketCategoriesByType($event.value)"
+      >
+        <mat-option value="Operation">Operation</mat-option>
+        <mat-option value="Maintenance">Maintenance</mat-option>
+      </mat-select>
+
+      <mat-error *ngIf="ticketForm.controls['ticketType'].hasError('required')">
+        <strong>Ticket Type</strong> is required to create a new Ticket!!
+      </mat-error>
+      
+    </mat-form-field>
+    <mat-form-field >
+      <mat-label>Ticket Category</mat-label>
+      <mat-select formControlName="ticketCategory" required>
+        <mat-option *ngFor="let ticketCategory of ticketCategories" [value]="ticketCategory.ticketCategoryId">
+          {{ ticketCategory.ticketCategoryName }}
+        </mat-option>
+      </mat-select>
+
+      <mat-error *ngIf="ticketForm.controls['ticketCategory'].hasError('required')">
+        <strong>Ticket Category </strong>is required to create a new Ticket!!
+      </mat-error>
+    </mat-form-field>
+    <mat-form-field >
+      <mat-label>Ticket Priority</mat-label>
+      <mat-select formControlName="severity" required>
+        <mat-option value="high">High</mat-option>
+        <mat-option value="medium">Medium</mat-option>
+        <mat-option value="low">Low</mat-option>
+
+      </mat-select>
+
+      <mat-error *ngIf="ticketForm.controls['severity'].hasError('required')">
+        Please select <strong>Priority</strong> to create new Ticket!!
+      </mat-error>
+    </mat-form-field>
+    <mat-form-field >
+      <mat-label>Remarks</mat-label>
+      <input matInput formControlName="remarks" placeholder="Important Remarks.." />
+    </mat-form-field>
+    <mat-form-field >
+      <mat-label>Ticket Description</mat-label>
+      <textarea
+        matInput
+        placeholder=""
+        required
+        formControlName="description"
+      ></textarea>
+      <mat-error
+        *ngIf="ticketForm.controls['description'].hasError('required')"
+      >
+      <strong>Description</strong> for Ticket is required!
+      </mat-error>
+    </mat-form-field>
+    <div class="buttons">
+      <button mat-raised-button color="accent">Create</button>
+      <button mat-raised-button color="warn" (click)="resetForm()">
+        Reset
+      </button>
+    </div>
+  </form>
+</div>

@@ -1,0 +1,45 @@
+.registration-success-contents {
+  display: grid;
+  place-items: center;
+  width: 35vw;
+  padding: 2em;
+  height: 80vh;
+margin:auto;
+margin-top: 1em;
+margin-bottom: 1em;
+  box-shadow: 0 2px 5px grey;
+}
+
+.title{
+  margin-bottom: -20%;
+  margin-top: -30%;
+}
+
+h2{
+  font-size: 2.5em;
+}
+
+.content{
+  margin-top: -10%;
+}
+
+
+/* css for button */
+button{
+  background-color: orange;
+  width: 15vw;
+  color:#fff;
+  font-size: medium;
+  border-radius: 50px;
+  border:none;
+  outline: none;
+  cursor: pointer;
+  box-shadow: 0px 2px 4px rgb(97, 97, 97);
+  padding: 5px;
+  margin-top: -10%;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+}

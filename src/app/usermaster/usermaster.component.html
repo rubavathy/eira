@@ -1,0 +1,362 @@
+<div class="content-container" fxLayout="column" fxLayoutGap="24px">
+    <div fxFill fxLayout="row" fxFlex>
+      <div fxLayout="row" fxLayoutAlign="center none" fxFlex="100">
+        <form
+          [formGroup]="userMasterForm"
+          novalidate
+          (ngSubmit)="onSubmit()"
+          fxFlex="90"
+          fxLayout="column"
+        >
+          <div fxFlex class="mat-h2 primary">User Code</div>
+  
+        <div fxFlex>
+          <div fxLayout="row">
+            <div fxLayout="column" fxFlex="50">
+              <div fxLayout="column" fxFlex>
+                <div fxFlex class="mat-h3">User Details</div>
+  
+                  <div fxFlex layout="row">
+
+
+                  <!--first name--><mat-form-field  fxFlex>
+                        <mat-label>First Name</mat-label>
+
+                    <input
+                    matInput
+                    placeholder="First Name"
+                    formControlName="firstName"
+                    required
+                  />
+                  </mat-form-field>
+
+                  <!--last name--><mat-form-field  fxFlex>
+                    <mat-label>Last Name</mat-label>
+
+                  <input
+                  matInput
+                  placeholder="Last Name"
+                  formControlName="lastName"
+                  required
+                />
+                  </mat-form-field>
+                     
+
+                  </div>
+  
+                  <div fxFlex layout="row">
+
+                  <!--user name--><mat-form-field  fxFlex>
+                        <mat-label>User Name</mat-label>
+    
+                      <input
+                      matInput
+                      placeholder="User Name"
+                      formControlName="userName"
+                      required
+                    />
+                  </mat-form-field>
+
+                  
+
+
+                <!--customer name-->      <mat-form-field  fxFlex="50">
+                  <mat-label>User Role*</mat-label>
+                          
+                  <mat-select
+                    placeholder="User Role"
+                    formControlName="roleName"
+                  >
+                    <mat-option
+                            *ngFor="let userrole of userRoles"
+                      [value]="userrole.roleName"
+                      >
+                        {{ userrole.roleName }}
+                    </mat-option>
+                  </mat-select>
+                  <mat-error
+              *ngIf="
+              userMasterForm.controls['roleName'].hasError('required')
+              "
+              >
+              <strong>Please select User Role!</strong>
+              </mat-error>
+                                </mat-form-field>
+
+
+
+                  </div>
+  
+
+
+
+
+                  <div fxFlex layout="row">
+                                       
+                          <!--customer name-->      <mat-form-field  fxFlex="50">
+                            <mat-label>Customer*</mat-label>
+                          
+                            <mat-select
+                              placeholder="Customer"
+                              formControlName="customerId"
+                            >
+                              <mat-option
+                                      *ngFor="let customer of customers"
+                                [value]="customer.customerId"
+                                >
+                                  {{ customer.customerName }}
+                              </mat-option>
+                            </mat-select>
+                            <mat-error
+                        *ngIf="
+                        userMasterForm.controls['customerId'].hasError('required')
+                        "
+                        >
+                        <strong>Please select Customer!</strong>
+                        </mat-error>
+                                          </mat-form-field>
+
+
+                        <!--company name-->     <mat-form-field  fxFlex="50">
+                            <mat-label>Company Name*</mat-label>
+
+                            <mat-select
+                              placeholder="Company Name"
+                              formControlName="companyId"
+                            >
+                              <mat-option
+                                      *ngFor="let company of companies"
+                                [value]="company.companyId"
+                                >
+                                  {{ company.companyName }}
+                              </mat-option>
+                            </mat-select>
+                            <mat-error
+                          *ngIf="
+                          userMasterForm.controls['companyId'].hasError('required')
+                          "
+                          >
+                          <strong>Please select Company Name!</strong>
+                          </mat-error>
+                                            </mat-form-field>
+
+
+                  </div>
+
+                  
+
+
+                  <div fxFlex class="mat-h3">Contact Details</div>
+                  <div fxFlex layout="row">
+
+
+                        <!--phone number-->      <mat-form-field  fxFlex>
+                        <mat-label>Phone Number</mat-label>
+
+                        <input
+                        matInput
+                        placeholder="Phone Number"
+                        formControlName="mobileNumber"
+                        required
+                      />
+                    </mat-form-field>
+
+                     <!--email--><mat-form-field  fxFlex>
+                      <mat-label>E-Mail</mat-label>
+
+                      <input
+                      matInput
+                      placeholder="E-Mail"
+                      formControlName="emailId"
+                      required
+                    />
+                  </mat-form-field>
+
+                  </div>
+
+
+
+
+                </div>
+              </div>
+  
+
+
+              <div fxLayout="column" fxFlex="50">
+                <div fxLayout="column" fxFlex>
+                  <div fxFlex class="mat-h3">location Details</div>
+  
+                  
+                  <div fxFlex layout="row">
+                   
+                    
+                  <!--address--><mat-form-field  fxFlex>
+              <mat-label>Address</mat-label>
+    
+              <input
+              matInput
+              placeholder="Address"
+              formControlName="address"
+              required
+               />
+                  </mat-form-field>
+             
+
+                  <!--country--><mat-form-field  fxFlex>
+                  <mat-label>Country*</mat-label>
+
+                    <mat-select
+                      placeholder="Country"
+                      formControlName="countryId"
+                      (selectionChange)="getStatesByCountry($event.value)"
+                    >
+                      <mat-option
+                        *ngFor="let country of countries"
+                        [value]="country.countryId"
+                      >
+                        {{ country.countryName }}
+                      </mat-option>
+                    </mat-select>
+                    <mat-error
+                      *ngIf="
+                      userMasterForm.controls['countryId'].hasError('required')
+                      "
+                    >
+                      <strong>Please select Country!</strong>
+                    </mat-error>
+                  </mat-form-field>
+
+
+                  </div>
+  
+                  
+                <div fxFlex fxLayout="row">
+
+                <!--STATE--><mat-form-field  fxFlex>
+                    <mat-label>State*</mat-label>
+
+                    <mat-select
+                      placeholder="State*"
+                      formControlName="stateId"
+                      (selectionChange)="getCitiesByState($event.value)"
+                    >
+                      <mat-option
+                        *ngFor="let state of states"
+                        [value]="state.stateId"
+                      >
+                        {{ state.stateName }}
+                      </mat-option>
+                    </mat-select>
+                    <mat-error
+                      *ngIf="userMasterForm.controls['stateId'].hasError('required')"
+                    >
+                      <strong>Please select State!</strong>
+                    </mat-error>
+                </mat-form-field>
+
+
+                <!--city--><mat-form-field  fxFlex>
+                    <mat-label>City*</mat-label>
+
+                    <mat-select placeholder="City" formControlName="cityId">
+                      <mat-option
+                        *ngFor="let city of cities"
+                        [value]="city.cityId"
+                      >
+                        {{ city.cityName }}
+                      </mat-option>
+                    </mat-select>
+                    <mat-error
+                      *ngIf="userMasterForm.controls['cityId'].hasError('required')"
+                    >
+                      <strong>Please select City!</strong>
+                    </mat-error>
+                  </mat-form-field>
+
+
+                </div>
+
+                
+                <div fxFlex class="mat-h3">Additional Details</div>
+                <div fxlayout="row" >
+  
+                <!--destination name--><mat-form-field  fxFlex>
+                      <mat-label>Designation</mat-label>
+
+                      <input
+                      matInput
+                      placeholder="Designation"
+                      formControlName="designation"
+                      required
+                    />
+                </mat-form-field>
+  
+
+                <!--date of birth--><mat-form-field  fxFlex>
+  <mat-label>Date of Birth</mat-label>
+
+  <input
+  matInput
+  placeholder="DOB"
+  formControlName="dateOfBirth"
+  required
+   />
+                </mat-form-field>
+            
+                </div>
+                <div fxlayout="row" >
+                    
+                  <mat-label class="mat-h4"  fxLayoutAlign = "center center"><b>Status</b></mat-label>
+
+                  
+                  <mat-radio-group formControlName="active" fxFlex fxLayoutAlign="none center">&nbsp;&nbsp;&nbsp;
+
+                    <mat-radio-button value="true">Active</mat-radio-button> &nbsp;&nbsp;&nbsp;
+                    <mat-radio-button value="false">In-Active</mat-radio-button>
+                  </mat-radio-group>
+                
+                </div>
+
+
+              </div>
+  
+              
+            </div>
+          </div>
+        </div>
+  
+        <div
+          fxFlex
+          fxLayoutAlign="center center"
+          class="button-row"
+          fxLayoutGap="20px"
+        >
+          <button mat-raised-button color="accent">Submit</button>
+  
+          <button
+            type="button"
+            mat-raised-button
+            color="warn"
+            (click)="resetForm()"
+          >
+            Reset
+          </button>
+        </div>
+
+        </form>
+      </div>
+    </div>
+    <div fxFlex fxLayout="row" fxLayoutAlign="center center">
+      <div fxFill fxLayout="column" fxFlex="90">
+        <div fxFlex>
+       <app-usermaster-table
+            (edit)="onEdit($event)"
+          ></app-usermaster-table>
+        </div>
+      </div>
+    
+    </div>
+  
+    
+  </div>
+  

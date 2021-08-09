@@ -1,0 +1,97 @@
+<div class="content-container" fxLayout="column" fxLayoutGap="24px">
+  <div fxFill fxLayout="row" fxFlex>
+    <div fxLayout="row" fxLayoutAlign="center none" fxFlex="100">
+      <form
+        [formGroup]="ticketSearchForm"
+        novalidate
+        (ngSubmit)="onSubmit()"
+        fxFlex="90"
+        fxLayout="column"
+      >
+        <div fxFlex class="mat-h2 primary">Ticket Search</div>
+        <div fxFlex fxLayout="column">
+          <div fxLayout="row">
+            <mat-form-field fxFlex >
+              <mat-label>Start date</mat-label>
+              <input matInput [matDatepicker]="from" formControlName="from" />
+              <mat-datepicker-toggle
+                matSuffix
+                [for]="from"
+              ></mat-datepicker-toggle>
+              <mat-datepicker #from></mat-datepicker>
+            </mat-form-field>
+
+            <mat-form-field fxFlex >
+              <mat-label>End date</mat-label>
+              <input matInput [matDatepicker]="to" formControlName="to" />
+              <mat-datepicker-toggle
+                matSuffix
+                [for]="to"
+              ></mat-datepicker-toggle>
+              <mat-datepicker #to></mat-datepicker>
+            </mat-form-field>
+
+            <mat-form-field fxFlex >
+              <mat-label>Site Name</mat-label>
+              <mat-select formControlName="siteId">
+                <mat-option *ngFor="let site of sites" [value]="site.siteId">
+                  {{ site.siteName }}
+                </mat-option>
+              </mat-select>
+            </mat-form-field>
+          </div>
+          <div fxLayout="row">
+            <mat-form-field  fxFlex >
+              <mat-label>Ticket State</mat-label>
+              <mat-select formControlName="status">
+                <mat-option *ngFor="let state of states" [value]="state.value">
+                  {{ state.viewValue }}
+                </mat-option>
+              </mat-select>
+            </mat-form-field>
+
+            <mat-form-field fxFlex >
+              <mat-label>Category</mat-label>
+              <mat-select formControlName="category">
+                <mat-option
+                  *ngFor="let ticketCategory of ticketCategories"
+                  [value]="ticketCategory.ticketCategoryId"
+                >
+                  {{ ticketCategory.ticketCategoryName }}
+                </mat-option>
+              </mat-select>
+            </mat-form-field>
+
+            <mat-form-field  fxFlex >
+              <mat-label>Ticket Priority</mat-label>
+              <mat-select formControlName="severity" required>
+                <mat-option value="high">High</mat-option>
+                <mat-option value="medium">Medium</mat-option>
+                <mat-option value="low">Low</mat-option>
+              </mat-select>
+            </mat-form-field>
+          </div>
+        </div>
+
+        <div  fxFlex
+        fxLayoutAlign="center center"
+        class="button-row"
+        fxLayoutGap="20px">
+          <button mat-raised-button color="primary" (click) = "onSubmit()">View</button>
+
+          <button mat-raised-button color="warn" (click)="resetForm()">
+            Clear
+          </button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <div fxFlex fxLayout="row" fxLayoutAlign="center none">
+    <div fxFill fxLayout="column" fxFlex="90">
+      <div fxFlex>
+        <app-eira-info></app-eira-info>
+      </div>
+    </div>
+  </div>
+</div>

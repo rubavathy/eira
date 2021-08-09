@@ -1,0 +1,14 @@
+
+
+.container{
+  display: flex;
+  flex-direction: column;
+
+  padding: 3em;
+}
+
+mat-form-field{
+  align-self: flex-end;
+  width: 40%;
+  margin-right: 5em;
+}

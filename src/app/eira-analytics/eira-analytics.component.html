@@ -1,0 +1,52 @@
+<div class="container">
+  <section>
+    <div class="mat-h2 primary">Analytics</div> <!--Title-->
+    <div class="mat-h3 primary">Site Name</div> <!--subHeading-->
+    <mat-form-field >
+      <mat-label>India Food Park IN-KA-RT-1003</mat-label>
+      <mat-select>
+        <mat-option *ngFor="let food of foods" [value]="food.value">
+          {{ food.viewValue }}
+        </mat-option>
+      </mat-select>
+    </mat-form-field>
+    <mat-tab-group>
+       <mat-tab label="Pre-configured"><!--tab-1 -->
+        <mat-form-field>
+          <mat-label>Search...</mat-label>
+          <input matInput (keyup)="applyFilter($event)" placeholder="Ex. Eira" #input>
+        </mat-form-field>
+        <mat-selection-list #shoes [multiple]="false">
+          <mat-list-option *ngFor="let shoe of typesOfShoes" [value]="shoe" class="list">
+            {{shoe}}
+          </mat-list-option>
+        </mat-selection-list>
+        <hr>
+        <mat-selection-list [multiple]="false">
+          <h2>1. Energy Production</h2>
+          <mat-list-option class="list">Plant Production - Daily(Fixed Time)</mat-list-option>
+          <mat-list-option class="list">Energy Meter Export VS Irradiation</mat-list-option>
+          <mat-list-option class="list">Plant Production - Daily(Flexible Time)</mat-list-option>
+          <mat-list-option class="list">Plant Production - Last 24 hours</mat-list-option>
+          <mat-list-option class="list">Plant Production - Last 7 days</mat-list-option>
+        </mat-selection-list>
+        <hr>
+        <mat-selection-list [multiple]="false">
+          <h2>2. Performance</h2>
+          <mat-list-option class="list">Investor perfomance Ratio</mat-list-option>
+          <mat-list-option class="list">Irradiance - Monthly</mat-list-option>
+          <mat-list-option class="list">Operating perfomance Ratio</mat-list-option>
+        </mat-selection-list>
+       </mat-tab>
+      <mat-tab label="Customize"><!--tab-2 -->
+         Content 2
+       </mat-tab>
+    </mat-tab-group>
+  </section>
+  <aside><!--card with table and chart data-->
+    <mat-tab-group mat-stretch-tabs class="example-stretched-tabs mat-elevation-z4">
+      <mat-tab label="Chart"> Chart </mat-tab>
+      <mat-tab label="Table"> table </mat-tab>
+    </mat-tab-group>
+  </aside>
+</div>

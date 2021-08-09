@@ -1,0 +1,64 @@
+form {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+  flex-wrap: wrap;
+  width: 60vw;
+  margin-bottom: 3em;}
+
+.container{
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin: 25px;
+
+}
+
+.mat-h2{
+  align-self: flex-start;
+  margin-left: 2em;
+}
+
+mat-form-field:last-of-type{
+  flex-basis: 100%;
+  align-self: center;
+}
+
+mat-form-field:nth-of-type(6) {
+  flex-basis: 100%;
+}
+
+mat-form-field:nth-of-type(3),
+mat-form-field:nth-of-type(4),
+mat-form-field:nth-of-type(5) {
+  flex-grow: 1;
+}
+
+mat-form-field:nth-of-type(1),
+mat-form-field:nth-of-type(2) {
+  flex-basis: 47.9%;
+}
+
+
+button{
+  margin: 10px;
+}
+
+
+@media screen and (max-width: 850px) {
+  form{
+    width: 70vw;
+  }
+}
+
+@media screen and (max-width: 660px) {
+  form{
+    width: 85vw;
+    flex-direction: column;
+    justify-content: space-evenly;
+  }
+  mat-form-field {
+    width: 70%;
+  }
+}

@@ -1,0 +1,133 @@
+<div class="content-container top-height" fxLayout="column" fxLayoutGap="24px">
+  <div fxLayout="column" fxLayoutAlign="center center">
+    <!-- class="mat-elevation-z6 pd-2" -->
+    <form
+      [formGroup]="userPermissionForm"
+      (ngSubmit)="onSubmit()"
+      fxLayout="column"
+    >
+      <div class="mat-h3">Permissions Form</div>
+
+      <div
+        fxFlex
+        fxLayout.xs="column"
+        fxLayoutGap="2rem"
+        fxLayoutGap.xs="1rem"
+        fxLayoutGap.md="2rem"
+        fxLayoutGap.xl="2.5rem"
+      >
+        <div fxFlex fxLayout="row">
+          <mat-form-field appearance="outline">
+            <mat-label>Permission Name</mat-label>
+            <input matInput formControlName="permissionName" />
+
+            <mat-error
+              *ngIf="
+                userPermissionForm.controls.permissionName.hasError('required')
+              "
+            >
+              Permission Name is <strong>required</strong>
+            </mat-error>
+          </mat-form-field>
+          <mat-form-field appearance="outline">
+            <mat-label>Category Name</mat-label>
+            <mat-select formControlName="category">
+              <mat-option
+                *ngFor="let category of categories"
+                [value]="category"
+              >
+                {{ category }}
+              </mat-option>
+            </mat-select>
+          </mat-form-field>
+        </div>
+
+        <div
+          fxFlex
+          fxLayout="row"
+          fxLayoutGap="2rem"
+          fxLayoutGap.xs="1rem"
+          fxLayoutGap.md="2rem"
+          fxLayoutGap.xl="2.5rem"
+        >
+          <div
+            fxLayout="column"
+            fxLayoutAlign="start center"
+            fxLayoutGap=".3rem"
+          >
+            <mat-label> View </mat-label>
+            <mat-slide-toggle formControlName="view"></mat-slide-toggle>
+          </div>
+          <div
+            fxLayout="column"
+            fxLayoutAlign="start center"
+            fxLayoutGap=".3rem"
+          >
+            <mat-label> Add </mat-label>
+            <mat-slide-toggle formControlName="add"></mat-slide-toggle>
+          </div>
+
+          <div
+            fxLayout="column"
+            fxLayoutAlign="start center"
+            fxLayoutGap=".3rem"
+          >
+            <mat-label> Edit </mat-label>
+            <mat-slide-toggle formControlName="edit"></mat-slide-toggle>
+          </div>
+          <div
+            fxLayout="column"
+            fxLayoutAlign="start center"
+            fxLayoutGap=".3rem"
+          >
+            <mat-label> Delete </mat-label>
+            <mat-slide-toggle formControlName="delete"></mat-slide-toggle>
+          </div>
+        </div>
+      </div>
+      <div
+        fxFlex
+        fxLayoutAlign="center center"
+        class="top-height button-row"
+        fxLayoutGap="20px"
+      >
+        <button mat-raised-button color="accent">Submit</button>
+
+        <button
+          type="button"
+          mat-raised-button
+          color="warn"
+          (click)="resetForm()"
+        >
+          Reset
+        </button>
+      </div>
+    </form>
+  </div>
+  <!-- <div fxFlex fxLayout="row" fxLayoutAlign="center none">
+    <div fxFill fxLayout="column">
+      <div fxFlex class="top-height">
+        <div fxLayout="row" fxLayoutGap="1rem" fxLayoutAlign="center center">
+          <p class="mat-h3">Select User Role</p>
+          <mat-form-field appearance="fill">
+            <mat-label>User Roles</mat-label>
+            <mat-select>
+              <mat-option *ngFor="let role of roles" [value]="role">
+                {{ role }}
+              </mat-option>
+            </mat-select>
+          </mat-form-field>
+        </div>
+      </div>
+    </div>
+  </div> -->
+  <div class="top-height" fxFlex fxLayout="row" fxLayoutAlign="center none">
+    <div fxFill fxLayout="column" fxFlex="90">
+      <div fxFlex>
+        <app-user-permsission-table
+          (editPermissionEvent)="editPermission($event)"
+        ></app-user-permsission-table>
+      </div>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,775 @@
+<div class="content-container" fxLayout="column" fxLayoutGap="24px">
+  <div fxFill fxLayout="row" fxFlex>
+    <div fxLayout="row" fxLayoutAlign="center none" fxFlex="100">
+      <form
+        [formGroup]="siteForm"
+        novalidate
+        (ngSubmit)="onSubmit()"
+        fxFlex="90"
+        fxLayout="column"
+      >
+        <input type="hidden" formControlName="siteId" />
+
+        <div fxFlex>
+          <div fxLayout="row" fxLayout.lt-md="column">
+            <div fxLayout="column" fxFlex="50">
+              <div fxLayout="column" fxFlex>
+                <div fxFlex class="mat-h3">Site Details</div>
+                <div fxFlex fxLayout="row" fxLayout.lt-md="column">
+                  <mat-form-field appearance="outline" fxFlex>
+                    <mat-label> Customer Name</mat-label>
+
+                    <mat-select
+                      required
+                      placeholder="Customer Name"
+                      formControlName="customerId"
+                    >
+                      <mat-option
+                        *ngFor="let customer of customers"
+                        [value]="customer.customerId"
+                      >
+                        {{ customer.customerName }}
+                      </mat-option>
+                    </mat-select>
+                    <mat-error
+                      *ngIf="
+                        siteForm.controls['customerId'].hasError('required')
+                      "
+                    >
+                      <strong>Please select Customer!</strong>
+                    </mat-error>
+                  </mat-form-field>
+
+                  <mat-form-field appearance="outline" fxFlex>
+                    <mat-label>Site Name</mat-label>
+
+                    <input
+                      #siteName
+                      required
+                      matInput
+                      placeholder="SiteName"
+                      formControlName="siteName"
+                      [errorStateMatcher]="errorMatcher"
+                    />
+                    <mat-hint>{{ siteName.value.length }} / 50</mat-hint>
+                    <mat-error
+                      *ngIf="siteForm.controls['siteName'].hasError('required')"
+                    >
+                      Site Name is <strong>required!</strong>
+                    </mat-error>
+                    <mat-error
+                      *ngIf="
+                        siteForm.controls['siteName'].hasError('minlength')
+                      "
+                    >
+                      Site Name must be greater than
+                      <strong>10 Charachters!</strong>
+                    </mat-error>
+                    <mat-error
+                      *ngIf="
+                        siteForm.controls['siteName'].hasError('maxlength')
+                      "
+                    >
+                      Site Name must be greater than
+                      <strong>50 Charachters</strong>
+                    </mat-error>
+                    <mat-error *ngIf="siteForm.errors?.alreadyExists">
+                      This Site Name is
+                      <strong>Already Used</strong>
+                    </mat-error>
+                  </mat-form-field>
+                </div>
+
+                <div fxFlex fxLayout="row" fxLayout.lt-md="column">
+                  <mat-form-field appearance="outline" fxFlex="40">
+                    <mat-label>Site Type</mat-label>
+
+                    <mat-select
+                      required
+                      placeholder="Site Type"
+                      formControlName="siteTypeId"
+                    >
+                      <mat-option
+                        *ngFor="let siteType of siteTypes"
+                        [value]="siteType.siteTypeId"
+                      >
+                        {{ siteType.siteType }}
+                      </mat-option>
+                    </mat-select>
+                    <mat-error
+                      *ngIf="
+                        siteForm.controls['siteTypeId'].hasError('required')
+                      "
+                    >
+                      <strong>Please select Site Type!</strong>
+                    </mat-error>
+                  </mat-form-field>
+                  <button
+                    type="button"
+                    mat-icon-button
+                    aria-label="Add sitetype"
+                    class="add-button"
+                    (click)="openSitetypeDialog()"
+                    fxFlex="10"
+                  >
+                    <mat-icon>add_circle</mat-icon>
+                  </button>
+                  <mat-form-field appearance="outline" fxFlex="50">
+                    <mat-select
+                      placeholder="Plant Type"
+                      formControlName="plantTypeId"
+                    >
+                      <mat-option
+                        *ngFor="let plantType of plantTypes"
+                        [value]="plantType.plantTypeId"
+                      >
+                        {{ plantType.plantType }}
+                      </mat-option>
+                      <mat-error
+                        *ngIf="
+                          siteForm.controls['plantTypeId'].hasError('required')
+                        "
+                      >
+                        Plant Type is <strong>Required!</strong>
+                      </mat-error>
+                    </mat-select>
+                  </mat-form-field>
+                </div>
+                <div fxFlex fxLayout="row" fxLayout.lt-md="column">
+                  <mat-form-field appearance="outline" fxFlex="50">
+                    <mat-label>Plant Capacity</mat-label>
+
+                    <mat-select
+                      required
+                      placeholder="Plant Capacity"
+                      formControlName="plantCapacity"
+                    >
+                      <mat-option
+                        *ngFor="let plantCapacity of plantCapacityList"
+                        [value]="plantCapacity.plantCapacity"
+                      >
+                        {{ plantCapacity.plantCapacity }}
+                      </mat-option>
+                    </mat-select>
+                    <mat-error
+                      *ngIf="
+                        siteForm.controls['plantCapacity'].hasError('required')
+                      "
+                    >
+                      <strong>Please select Plant Capacity!</strong>
+                    </mat-error>
+                  </mat-form-field>
+                  <mat-form-field appearance="outline" fxFlex="40">
+                    <mat-label>Hub/Region</mat-label>
+
+                    <mat-select
+                      placeholder="Hub/Region"
+                      formControlName="hub"
+                      fxFlex
+                    >
+                      <mat-option *ngFor="let hub of hubs" [value]="hub.hubId">
+                        {{ hub.regionName }}
+                      </mat-option>
+                    </mat-select>
+                  </mat-form-field>
+                  <button
+                    type="button"
+                    mat-icon-button
+                    aria-label="Add Region"
+                    class="add-button"
+                    (click)="openRegionDialog()"
+                    fxFlex="10"
+                  >
+                    <mat-icon>add_circle</mat-icon>
+                  </button>
+                </div>
+
+                <div fxFlex class="mat-h3">Location Details</div>
+                <div fxFlex fxLayout="row" fxLayout.lt-md="column">
+                  <mat-form-field appearance="outline" fxFlex>
+                    <mat-label>Latitude</mat-label>
+
+                    <input
+                      required
+                      matInput
+                      placeholder="Latitude"
+                      formControlName="latitude"
+                    />
+                    <mat-error
+                      *ngIf="siteForm.controls['latitude'].hasError('required')"
+                    >
+                      Latitude is <strong>required</strong>
+                    </mat-error>
+                    <mat-error
+                      *ngIf="siteForm.controls['latitude'].hasError('pattern')"
+                    >
+                      Latitude can only be
+                      <strong>'0 - 9' , '.' and '[ + , = ]'</strong>
+                    </mat-error>
+                  </mat-form-field>
+
+                  <mat-form-field appearance="outline" fxFlex>
+                    <mat-label>Longitude</mat-label>
+
+                    <input
+                      required
+                      matInput
+                      placeholder="Longitude"
+                      formControlName="longitude"
+                    />
+                    <mat-error
+                      *ngIf="
+                        siteForm.controls['longitude'].hasError('required')
+                      "
+                    >
+                      Longitude is <strong>required</strong>
+                    </mat-error>
+                    <mat-error
+                      *ngIf="siteForm.controls['longitude'].hasError('pattern')"
+                    >
+                      Longitude can only be
+                      <strong>'0 - 9' , '.' and '[ + , = ]'</strong>
+                    </mat-error>
+                  </mat-form-field>
+                </div>
+
+                <div fxFlex layout="row">
+                  <mat-form-field appearance="outline" fxFlex>
+                    <mat-label>Site Location URL </mat-label>
+
+                    <input
+                      required
+                      matInput
+                      placeholder="Site Location URL"
+                      formControlName="locationURL"
+                    />
+                    <mat-error
+                      *ngIf="
+                        siteForm.controls['locationURL'].hasError('required')
+                      "
+                    >
+                      Site Location URL <strong>required</strong>
+                    </mat-error>
+                  </mat-form-field>
+                </div>
+
+                <div fxFlex layout="row">
+                  <mat-form-field appearance="outline" fxFlex>
+                    <mat-label>Site Address</mat-label>
+
+                    <input
+                      #siteAddress
+                      required
+                      matInput
+                      placeholder="Site Address*"
+                      formControlName="siteAddress"
+                    />
+                    <mat-hint>{{ siteAddress.value.length }} / 150</mat-hint>
+
+                    <mat-error
+                      *ngIf="
+                        siteForm.controls['siteAddress'].hasError('required')
+                      "
+                    >
+                      Site Address <strong>required</strong>
+                    </mat-error>
+                    <mat-error
+                      *ngIf="
+                        siteForm.controls['siteAddress'].hasError('minlength')
+                      "
+                    >
+                      Site Name must be greater than
+                      <strong>10 Charachters!</strong>
+                    </mat-error>
+                    <mat-error
+                      *ngIf="
+                        siteForm.controls['siteAddress'].hasError('maxlength')
+                      "
+                    >
+                      Site Name must be greater than
+                      <strong>150 Charachters</strong>
+                    </mat-error>
+                  </mat-form-field>
+                </div>
+
+                <div fxFlex fxLayout="row" fxLayout.lt-md="column">
+                  <mat-form-field appearance="outline" fxFlex>
+                    <mat-label>Country</mat-label>
+
+                    <mat-select
+                      required
+                      placeholder="Country"
+                      formControlName="countryId"
+                      (selectionChange)="getStatesByCountry($event.value)"
+                    >
+                      <mat-option
+                        *ngFor="let country of countries"
+                        [value]="country.countryId"
+                      >
+                        {{ country.countryName }}
+                      </mat-option>
+                    </mat-select>
+                    <mat-error
+                      *ngIf="
+                        siteForm.controls['countryId'].hasError('required')
+                      "
+                    >
+                      <strong>Please select Country!</strong>
+                    </mat-error>
+                  </mat-form-field>
+
+                  <mat-form-field appearance="outline" fxFlex>
+                    <mat-label>State</mat-label>
+
+                    <mat-select
+                      required
+                      placeholder="State*"
+                      formControlName="stateId"
+                      (selectionChange)="getCitiesByState($event.value)"
+                    >
+                      <mat-option
+                        *ngFor="let state of states"
+                        [value]="state.stateId"
+                      >
+                        {{ state.stateName }}
+                      </mat-option>
+                    </mat-select>
+                    <mat-error
+                      *ngIf="siteForm.controls['stateId'].hasError('required')"
+                    >
+                      <strong>Please select State!</strong>
+                    </mat-error>
+                  </mat-form-field>
+                </div>
+
+                <div fxFlex fxLayout="row" fxLayout.lt-md="column">
+                  <mat-form-field appearance="outline" fxFlex>
+                    <mat-label>City</mat-label>
+
+                    <mat-select
+                      required
+                      placeholder="City"
+                      formControlName="cityId"
+                    >
+                      <mat-option
+                        *ngFor="let city of cities"
+                        [value]="city.cityId"
+                      >
+                        {{ city.cityName }}
+                      </mat-option>
+                    </mat-select>
+                    <mat-error
+                      *ngIf="siteForm.controls['cityId'].hasError('required')"
+                    >
+                      <strong>Please select City!</strong>
+                    </mat-error>
+                  </mat-form-field>
+
+                  <mat-form-field appearance="outline" fxFlex>
+                    <mat-label>Pincode</mat-label>
+                    <input
+                      required
+                      #pincode
+                      matInput
+                      placeholder="Pincode"
+                      formControlName="pincode"
+                    />
+                    <mat-hint>{{ pincode.value.length }} / 6</mat-hint>
+                    <mat-error
+                      *ngIf="siteForm.controls['pincode'].hasError('required')"
+                    >
+                      Pincode is <strong>required!</strong>
+                    </mat-error>
+                    <mat-error
+                      *ngIf="
+                        siteForm.controls['pincode'].hasError('maxlength') ||
+                        siteForm.controls['pincode'].hasError('minlength')
+                      "
+                    >
+                      Pincode must be Equal to
+                      <strong>6 Characters</strong>
+                    </mat-error>
+                  </mat-form-field>
+                </div>
+              </div>
+
+              <div fxFlex class="mat-h3">Plant Details</div>
+              <div fxFlex layout="row">
+                <h2 *ngIf="siteForm.controls['siteId'].value === -1">
+                  Upload Site Logo's
+                </h2>
+                <h2 *ngIf="siteForm.controls['siteId'].value !== -1">
+                  Update Site Logo's
+                </h2>
+                <div
+                  class="image-box"
+                  ngx-dropzone
+                  [maxFileSize]="1000000"
+                  [multiple]="true"
+                  [accept]="'image/jpeg,image/jpg,image/png,image/svg+xml'"
+                  (change)="onSelect($event)"
+                >
+                  <ngx-dropzone-label>
+                    <div>
+                      <h2>Upload Plant Images</h2>
+                    </div>
+                  </ngx-dropzone-label>
+                  <ngx-dropzone-image-preview
+                    ngProjectAs="ngx-dropzone-preview"
+                    *ngFor="let f of files"
+                    [file]="f"
+                    [removable]="true"
+                    (removed)="onRemove(f)"
+                  >
+                    <ngx-dropzone-label
+                      >{{ f.name }} ({{ f.type }})</ngx-dropzone-label
+                    >
+                  </ngx-dropzone-image-preview>
+                </div>
+
+                <div class="mat-h4" [style.margin]="'12px .5rem 0'">
+                  NOTE : The Image Must be in PNG , SVG , JPG or JPEG under
+                  <strong>1 MB</strong>
+                </div>
+              </div>
+              <div
+                fxFlex
+                fxLayout="row"
+                *ngIf="siteForm.controls['siteId'].value !== -1"
+              >
+                <button
+                  mat-raised-button
+                  color="primary"
+                  type="button"
+                  (click)="showPhotos()"
+                >
+                  View Photos
+                </button>
+              </div>
+            </div>
+
+            <div fxLayout="column" fxFlex="50">
+              <div fxLayout="column" fxFlex>
+                <div fxFlex class="mat-h3">Contact Details</div>
+                <div fxFlex fxLayout="row" fxLayout.lt-md="column">
+                  <mat-form-field appearance="outline" fxFlex>
+                    <mat-label>Phone Number # </mat-label>
+
+                    <input
+                      #phoneNumber
+                      matInput
+                      placeholder="Phone Number"
+                      formControlName="phoneNumber"
+                    />
+                    <mat-hint>{{ phoneNumber.value.length }} / 10</mat-hint>
+                    <mat-error
+                      *ngIf="
+                        siteForm.controls['phoneNumber'].hasError('pattern')
+                      "
+                    >
+                      Phone Number must be only <strong>Number!</strong>
+                    </mat-error>
+                    <mat-error
+                      *ngIf="
+                        siteForm.controls['phoneNumber'].hasError('minlength')
+                      "
+                    >
+                      Phone Number must be Greater than
+                      <strong>9 Characters</strong>
+                    </mat-error>
+                    <mat-error
+                      *ngIf="
+                        siteForm.controls['phoneNumber'].hasError('maxlength')
+                      "
+                    >
+                      Phone Number must be Less than
+                      <strong>15 Characters</strong>
+                    </mat-error>
+
+                    <mat-icon matSuffix>phone</mat-icon>
+                  </mat-form-field>
+
+                  <mat-form-field appearance="outline" fxFlex>
+                    <mat-label>Email Id</mat-label>
+
+                    <input
+                      required
+                      matInput
+                      placeholder="Email Id"
+                      formControlName="email"
+                    />
+                    <mat-error
+                      *ngIf="siteForm.controls['email'].hasError('required')"
+                    >
+                      Email is <strong>required</strong>
+                    </mat-error>
+
+                    <mat-error
+                      *ngIf="
+                        siteForm.controls['email'].hasError('email') ||
+                        siteForm.controls['email'].hasError('pattern')
+                      "
+                    >
+                      Email should be in <strong>valid</strong> format!
+                    </mat-error>
+                  </mat-form-field>
+                </div>
+
+                <div fxFlex fxLayout="row" fxLayout.lt-md="column">
+                  <mat-form-field appearance="outline" fxFlex>
+                    <mat-label>Primary Contact Name </mat-label>
+
+                    <input
+                      required
+                      matInput
+                      placeholder="Primary Contact Name*"
+                      formControlName="primaryContactName"
+                    />
+
+                    <mat-error
+                      *ngIf="
+                        siteForm.controls['primaryContactName'].hasError(
+                          'required'
+                        )
+                      "
+                    >
+                      Primary Contact Name is <strong>required</strong>
+                    </mat-error>
+                    <mat-error
+                      *ngIf="
+                        siteForm.controls['primaryContactName'].hasError(
+                          'pattern'
+                        )
+                      "
+                    >
+                      Primary Contact Name must contain only
+                      <strong>Alphabets and Spaces</strong>
+                    </mat-error>
+                  </mat-form-field>
+
+                  <mat-form-field appearance="outline" fxFlex>
+                    <mat-label>Primary Contact Email Id </mat-label>
+
+                    <input
+                      required
+                      matInput
+                      placeholder="Primary Contact Email Id"
+                      formControlName="primaryContactEmail"
+                    />
+                    <mat-error
+                      *ngIf="
+                        siteForm.controls['primaryContactEmail'].hasError(
+                          'required'
+                        )
+                      "
+                    >
+                      Primary Contact Email is <strong>required</strong>
+                    </mat-error>
+
+                    <mat-error
+                      *ngIf="
+                        siteForm.controls['primaryContactEmail'].hasError(
+                          'email'
+                        ) ||
+                        siteForm.controls['primaryContactEmail'].hasError(
+                          'pattern'
+                        )
+                      "
+                    >
+                      Email should be in <strong>valid</strong>format!
+                    </mat-error>
+                  </mat-form-field>
+                </div>
+
+                <div fxFlex fxLayout="row" fxLayout.lt-md="column">
+                  <mat-form-field appearance="outline" fxFlex>
+                    <mat-label>Primary Contact Mobile #</mat-label>
+
+                    <input
+                      matInput
+                      placeholder="Primary Contact Mobile No"
+                      formControlName="primaryContactMobileNumber"
+                      #primaryContactMobileNumber
+                    />
+                    <mat-hint
+                      >{{ primaryContactMobileNumber.value.length }} /
+                      10</mat-hint
+                    >
+
+                    <mat-error
+                      *ngIf="
+                        siteForm.controls[
+                          'primaryContactMobileNumber'
+                        ].hasError('pattern')
+                      "
+                    >
+                      Phone Number must be only <strong>Number!</strong>
+                    </mat-error>
+                    <mat-error
+                      *ngIf="
+                        siteForm.controls[
+                          'primaryContactMobileNumber'
+                        ].hasError('minlength')
+                      "
+                    >
+                      Phone Number must be Greater than
+                      <strong>9 Characters</strong>
+                    </mat-error>
+                    <mat-error
+                      *ngIf="
+                        siteForm.controls[
+                          'primaryContactMobileNumber'
+                        ].hasError('maxlength')
+                      "
+                    >
+                      Phone Number must be Less than
+                      <strong>15 Characters</strong>
+                    </mat-error>
+                  </mat-form-field>
+
+                  <mat-form-field appearance="outline" fxFlex>
+                    <mat-label>Designation #</mat-label>
+
+                    <mat-select
+                      placeholder="Designation"
+                      formControlName="designation"
+                    >
+                      <mat-option
+                        *ngFor="let designation of designations"
+                        [value]="designation.name"
+                      >
+                        {{ designation.name }}
+                      </mat-option>
+                    </mat-select>
+                  </mat-form-field>
+                </div>
+
+                <div fxFlex class="mat-h3">Financial Details</div>
+                <div fxFlex layout="row">
+                  <mat-form-field appearance="outline" fxFlex>
+                    <mat-label>PAN/TAX </mat-label>
+
+                    <input
+                      required
+                      matInput
+                      placeholder="PAN/TAX #"
+                      formControlName="panOrTaxNo"
+                    />
+                    <mat-error
+                      *ngIf="
+                        siteForm.controls['panOrTaxNo'].hasError('required')
+                      "
+                    >
+                      PAN or TAX No is <strong>required</strong>
+                    </mat-error>
+                  </mat-form-field>
+                </div>
+
+                <div fxFlex fxLayout="row" fxLayout.lt-md="column">
+                  <div fxFlex class="gstDiv">
+                    GST Compliant
+                    <mat-slide-toggle
+                      (change)="onChangeGSTComplaint($event)"
+                      formControlName="gstCompliant"
+                    ></mat-slide-toggle>
+                  </div>
+                  <mat-form-field appearance="outline" fxFlex>
+                    <mat-label>GST / VAT No #*</mat-label>
+                    <input
+                      matInput
+                      placeholder="GST No"
+                      formControlName="gstOrVatNumber"
+                    />
+                    <mat-error
+                      *ngIf="
+                        siteForm.controls['gstOrVatNumber'].hasError('required')
+                      "
+                    >
+                      GST / VAT No is <strong>required</strong>
+                    </mat-error>
+                  </mat-form-field>
+                </div>
+
+                <!-- <div fxFlex class="mat-h3">Plant Details</div> -->
+                <div fxFlex fxLayout="row" fxLayout.lt-md="column">
+                  <mat-form-field appearance="outline" fxFlex>
+                    <mat-label>Module Area</mat-label>
+
+                    <input
+                      matInput
+                      placeholder="Module Area"
+                      formControlName="moduleArea"
+                    />
+                  </mat-form-field>
+
+                  <mat-form-field appearance="outline" fxFlex>
+                    <mat-label>Date Of Commissioning</mat-label>
+
+                    <input
+                      matInput
+                      [matDatepicker]="picker"
+                      placeholder="Date Of Commissioning"
+                      formControlName="dateOfCommissioning"
+                    />
+
+                    <mat-datepicker-toggle
+                      matSuffix
+                      [for]="picker"
+                    ></mat-datepicker-toggle>
+                    <mat-datepicker #picker></mat-datepicker>
+                  </mat-form-field>
+                </div>
+
+                <div fxFlex layout="row">
+                  <mat-form-field appearance="outline" fxFlex>
+                    <mat-label>Module Details</mat-label>
+
+                    <textarea
+                      matInput
+                      placeholder="Module Details"
+                      formControlName="moduleDetails"
+                    ></textarea>
+
+                    <mat-error
+                      *ngIf="
+                        siteForm.controls['moduleDetails'].hasError('required')
+                      "
+                    >
+                      Module Details are <strong>required</strong>
+                    </mat-error>
+                  </mat-form-field>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div
+          fxFlex
+          fxLayoutAlign="center center"
+          class="button-row"
+          fxLayoutGap="20px"
+        >
+          <button mat-raised-button color="accent">Submit</button>
+
+          <button
+            type="button"
+            mat-raised-button
+            color="warn"
+            (click)="resetForm()"
+          >
+            Reset
+          </button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <div fxFlex fxLayout="row" fxLayoutAlign="center none">
+    <div fxFill fxLayout="column" fxFlex="90">
+      <div fxFlex>
+        <app-site-table (edit)="onEdit($event)"></app-site-table>
+      </div>
+    </div>
+  </div>
+</div>

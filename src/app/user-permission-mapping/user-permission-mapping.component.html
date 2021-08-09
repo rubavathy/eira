@@ -1,0 +1,89 @@
+<div class="content-container top-height" fxLayout="column" fxLayoutGap="24px">
+  <form
+    [formGroup]="userRolePermissionForm"
+    fxLayout="column"
+    fxLayoutAlign="center center"
+    (ngSubmit)="onSubmit()"
+  >
+    <div>
+      <div>
+        <div fxLayoutAlign="start">
+          <div class="mat-h3">Permissions Mapping</div>
+        </div>
+
+        <div formGroupName="userRole">
+          <mat-form-field appearance="outline">
+            <mat-label>Role Name</mat-label>
+            <mat-select placeholder="Role Name" formControlName="roleName">
+              <mat-option
+                *ngFor="let role of roles; let i = index"
+                (onSelectionChange)="updatePermissionsValue(i)"
+                [value]="role.userRole.roleId"
+              >
+                {{ role.userRole.roleName }}
+              </mat-option>
+            </mat-select>
+            <mat-error
+              *ngIf="
+                userRolePermissionForm.controls['permissions'].hasError(
+                  'required'
+                )
+              "
+              >Select User Role</mat-error
+            >
+          </mat-form-field>
+        </div>
+      </div>
+    </div>
+    <div fxFill class="top-height">
+      <div fxLayoutAlign="center center">
+        <div fxFlex="90">
+          <app-user-permission-mapping-table
+            [permissionsList]="role ? role.permissionsList : []"
+            (addPermissionEvent)="addPermission($event)"
+            (getAllPermissionEvent)="getPermissions($event)"
+          ></app-user-permission-mapping-table>
+        </div>
+      </div>
+    </div>
+
+    <div
+      fxFlex
+      fxLayoutAlign="center center"
+      class="button-row"
+      fxLayoutGap="20px"
+    >
+      <button mat-raised-button color="accent">Submit</button>
+
+      <button
+        type="button"
+        mat-raised-button
+        color="warn"
+        (click)="resetForm()"
+      >
+        Reset
+      </button>
+    </div>
+  </form>
+  <div class="top-height" fxFlex fxLayout="row" fxLayoutAlign="center none">
+    <div fxFill fxLayout="column" fxFlex="90">
+      <div fxFlex class="role-permissions">
+        <div *ngFor="let role of roles; let i = index">
+          <div
+            fxLayout="row"
+            fxFill
+            [ngClass]="{ 'permission-box': i !== rolesLength }"
+          >
+            <div fxFlex="30" fxLayout="column" class="box-height">
+              {{ role.userRole.roleName }}
+            </div>
+            <div fxFlex="70" fxLayout="column" class="box-height border-left">
+              {{ getPermissionNames(role.permissionsList) }}
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div></div>
+</div>

@@ -1,0 +1,20 @@
+.btn-allow {
+  background-color: aquamarine;
+  border: none;
+  border-radius: 0.5rem;
+}
+.permission-text {
+  font-family: Roboto, 'Helvetica Neue', sans-serif;
+}
+.green {
+  color: green;
+}
+.btn-denied {
+  background-color: lightcoral;
+  border: none;
+  border-radius: 0.5rem;
+}
+
+.red {
+  color: darkred;
+}

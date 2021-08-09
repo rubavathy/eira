@@ -1,0 +1,72 @@
+<div class="mat-elevation-z8">
+  <div fxLayout="row">
+    <div fxFlex="56" fxFlexOffset="15" fxLayoutAlign="center center">
+      <div class="mat-h2 table-heading"><u>User Site Mappping Table</u></div>
+    </div>
+    <mat-form-field fxFlex fxLayoutAlign="flex-end center">
+      <input
+        matInput
+        type="text"
+        (keyup)="doFilter($event.target.value)"
+        placeholder="Filter"
+      />
+    </mat-form-field>
+  </div>
+  <mat-table class="full-width-table" matSort [dataSource]="users">
+    <ng-container matColumnDef="userRole">
+      <mat-header-cell *matHeaderCellDef mat-sort-header
+        >User Name</mat-header-cell
+      >
+      <mat-cell *matCellDef="let user">
+        {{ user.userName }}
+      </mat-cell>
+    </ng-container>
+
+    <ng-container matColumnDef="customerName">
+      <mat-header-cell *matHeaderCellDef mat-sort-header
+        >Customer Name</mat-header-cell
+      >
+      <mat-cell *matCellDef="let user">
+        {{ user.customerName }}
+      </mat-cell>
+    </ng-container>
+
+    <ng-container matColumnDef="siteName">
+      <mat-header-cell *matHeaderCellDef mat-sort-header
+        >Site Names</mat-header-cell
+      >
+      <mat-cell *matCellDef="let user">
+        {{ user.siteNames }}
+      </mat-cell>
+    </ng-container>
+
+    <ng-container matColumnDef="edit">
+      <mat-header-cell *matHeaderCellDef mat-sort-header></mat-header-cell>
+      <mat-cell *matCellDef="let row">
+        <button
+          mat-icon-button
+          matTooltip="Click to Edit"
+          class="iconbutton"
+          (click)="editUserSitePermission(row)"
+        >
+          <mat-icon aria-label="Edit">edit</mat-icon>
+        </button>
+      </mat-cell>
+    </ng-container>
+
+    <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+    <mat-row
+      *matRowDef="let row; let even = even; columns: displayedColumns"
+      [ngClass]="{ gray: even }"
+    ></mat-row>
+  </mat-table>
+
+  <mat-paginator
+    #paginator
+    [length]="users.data.length"
+    [pageIndex]="0"
+    [pageSize]="10"
+    [pageSizeOptions]="[5, 10, 20, 25]"
+  >
+  </mat-paginator>
+</div>

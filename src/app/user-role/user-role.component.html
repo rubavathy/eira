@@ -1,0 +1,108 @@
+<div class="content-container" fxLayout="column" fxLayoutGap="24px">
+  <div fxFill fxLayout="row" fxFlex>
+    <div fxLayout="row" fxLayoutAlign="center none" fxFlex="100">
+      <form
+        [formGroup]="userRoleForm"
+        novalidate
+        (ngSubmit)="onSubmit()"
+        fxFlex="90"
+        fxLayout="column"
+      >
+        <input type="hidden" formControlName="roleId" />
+
+        <div fxFlex>
+          <div fxLayout="row" fxLayoutGap="20px">
+            <div fxLayout="column" fxFlex="50">
+              <div fxLayout="column" fxFlex>
+                <div fxFlex class="mat-h3">User Role Details</div>
+
+                <div fxFlex layout="row">
+                  <mat-form-field fxFlex>
+                    <mat-label>Role Name</mat-label>
+
+                    <input
+                      matInput
+                      placeholder="Role Name"
+                      formControlName="roleName"
+                    />
+                  </mat-form-field>
+                </div>
+
+                <div fxFlex layout="row">
+                  <mat-label class="mat-h4" fxLayoutAlign="center center"
+                    ><b>Role Status</b></mat-label
+                  >
+
+                  <mat-radio-group
+                    formControlName="active"
+                    fxFlex
+                    fxLayoutAlign="none center"
+                    >&nbsp;&nbsp;&nbsp;
+
+                    <mat-radio-button value="true">Active</mat-radio-button>
+                    &nbsp;&nbsp;&nbsp;
+                    <mat-radio-button value="false">In-Active</mat-radio-button>
+                  </mat-radio-group>
+                </div>
+              </div>
+            </div>
+
+            <div fxLayout="column" fxFlex="50">
+              <div fxLayout="column" fxFlex>
+                <div fxFlex class="mat-h3">Additional Details</div>
+
+                <div fxFlex layout="row">
+                  <mat-form-field fxFlex>
+                    <mat-label>Description*</mat-label>
+
+                    <textarea
+                      matInput
+                      placeholder="Description for User Role*"
+                      formControlName="description"
+                    ></textarea>
+
+                    <mat-error
+                      *ngIf="
+                        userRoleForm.controls['description'].hasError(
+                          'required'
+                        )
+                      "
+                    >
+                      Description is <strong>required</strong>
+                    </mat-error>
+                  </mat-form-field>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div
+          fxFlex
+          fxLayoutAlign="center center"
+          class="button-row"
+          fxLayoutGap="20px"
+        >
+          <button mat-raised-button color="accent">Submit</button>
+
+          <button
+            type="button"
+            mat-raised-button
+            color="warn"
+            (click)="resetForm()"
+          >
+            Reset
+          </button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <div fxFlex fxLayout="row" fxLayoutAlign="center none">
+    <div fxFill fxLayout="column" fxFlex="90">
+      <div fxFlex>
+        <app-user-role-table (edit)="onEdit($event)"></app-user-role-table>
+      </div>
+    </div>
+  </div>
+</div>

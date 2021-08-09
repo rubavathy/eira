@@ -1,0 +1,22 @@
+.pd-2 {
+  padding: 2rem;
+}
+.top-height {
+  margin-top: 2rem;
+}
+
+.other-text {
+  opacity: 0.75;
+  font-size: 0.85em;
+}
+.long-dropdown {
+  width: 20rem;
+}
+
+::ng-deep .hide-checkbox .mat-pseudo-checkbox {
+  display: none;
+}
+.dropdown-heading {
+  font-size: 0.8rem;
+  font-weight: 500;
+}

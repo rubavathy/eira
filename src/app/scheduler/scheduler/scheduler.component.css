@@ -1,0 +1,15 @@
+.calender {
+  margin: 2rem;
+  border: 2px solid rgba(0, 0, 0, 0.5);
+}
+
+.header {
+  margin-top: 1rem;
+}
+
+.blue {
+  color: #a8addb;
+}
+.red {
+  color: #ff9100;
+}

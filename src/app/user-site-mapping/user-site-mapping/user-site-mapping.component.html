@@ -1,0 +1,102 @@
+<div
+  *ngIf="users"
+  class="content-container top-height"
+  fxLayout="column"
+  fxLayoutGap="24px"
+>
+  <div fxLayout="column" fxLayoutAlign="center center">
+    <form
+      (ngSubmit)="onSubmit()"
+      [formGroup]="userSiteMappingForm"
+      fxLayout="column"
+    >
+      <div class="mat-h3">User Site Mapping Form</div>
+
+      <div
+        fxFlex
+        fxLayout.xs="column"
+        fxLayoutGap="2rem"
+        fxLayoutGap.xs="1rem"
+        fxLayoutGap.md="2rem"
+        fxLayoutGap.xl="2.5rem"
+      >
+        <div fxFlex fxLayout="row">
+          <mat-form-field appearance="outline">
+            <mat-label>User Roles</mat-label>
+            <mat-select placeholder="Role Name" formControlName="userId">
+              <mat-option
+                *ngFor="let user of users; let i = index"
+                [value]="user.userId"
+                (onSelectionChange)="updateFormValue($event, user, i)"
+              >
+                {{ user.userName }}
+              </mat-option>
+            </mat-select>
+          </mat-form-field>
+          <mat-form-field appearance="outline" class="long-dropdown">
+            <mat-label>customer</mat-label>
+            <mat-select #customerDropDown>
+              <div *ngFor="let customer of customers">
+                <mat-option (click)="customerDropDown.open()">
+                  <mat-checkbox class="dropdown-heading">
+                    {{ customer.customerName }}
+                  </mat-checkbox>
+                </mat-option>
+
+                <mat-option
+                  (click)="customerDropDown.open()"
+                  *ngFor="let site of customer.sites"
+                  [value]="site.siteId"
+                >
+                  <mat-checkbox
+                    (change)="
+                      updateCustomerData($event, {
+                        customerId: customer.customerId,
+                        customerName: customer.customerName,
+                        site: site
+                      })
+                    "
+                    [checked]="getIfSiteSelected(site.siteId)"
+                  >
+                    {{ site.siteName }}
+                  </mat-checkbox>
+                </mat-option>
+              </div>
+            </mat-select>
+          </mat-form-field>
+        </div>
+      </div>
+
+      <div
+        fxFlex
+        fxLayoutAlign="center center"
+        class="top-height button-row"
+        fxLayoutGap="20px"
+      >
+        <button mat-raised-button color="accent">Submit</button>
+
+        <button
+          type="button"
+          mat-raised-button
+          color="warn"
+          (click)="resetForm()"
+        >
+          Reset
+        </button>
+      </div>
+    </form>
+  </div>
+
+  <div fxFlex fxLayout="row" fxLayoutAlign="center none">
+    <div fxFill fxLayout="column" fxFlex="90">
+      <div class="mat-h3 top-height">User Site Mapping Details</div>
+      <div fxFlex>
+        <app-user-site-mapping-table
+          [userRoles]="users"
+          [customers]="customers"
+          (edit)="updateFormValue(true, $event, '')"
+        ></app-user-site-mapping-table>
+      </div>
+    </div>
+  </div>
+</div>

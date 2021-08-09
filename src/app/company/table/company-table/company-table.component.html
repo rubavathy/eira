@@ -1,0 +1,90 @@
+<div class="mat-elevation-z8">
+  <div fxLayout fxLayoutAlign="end center">
+    <mat-form-field fxFlex="40%">
+      <input
+        matInput
+        type="text"
+        (keyup)="doFilter($event.target.value)"
+        placeholder="Filter"
+      />
+    </mat-form-field>
+  </div>
+  <mat-table
+    class="full-width-table"
+    matSort
+    aria-label="Elements"
+    [dataSource]="dataSource"
+  >
+    <ng-container matColumnDef="companyCode">
+      <mat-header-cell *matHeaderCellDef mat-sort-header
+        >Company Code</mat-header-cell
+      >
+      <mat-cell *matCellDef="let row">{{ row.companyCode }}</mat-cell>
+    </ng-container>
+
+    <ng-container matColumnDef="companyName">
+      <mat-header-cell *matHeaderCellDef mat-sort-header
+        >Company Name</mat-header-cell
+      >
+      <mat-cell *matCellDef="let row">{{ row.companyName }}</mat-cell>
+    </ng-container>
+
+   
+    <ng-container matColumnDef="location">
+      <mat-header-cell *matHeaderCellDef mat-sort-header
+        >Location</mat-header-cell
+      >
+      <mat-cell *matCellDef="let row">{{ row.city + ", " +  row.state }} </mat-cell>
+    </ng-container>
+    
+    <ng-container matColumnDef="active">
+      <mat-header-cell *matHeaderCellDef mat-sort-header
+        >Status</mat-header-cell
+      >
+      <mat-cell *matCellDef="let row">
+        {{ row.active ? 'Active' : 'In-Active' }}
+      </mat-cell>
+    </ng-container>
+
+    <ng-container matColumnDef="companyLogo">
+      <mat-header-cell *matHeaderCellDef mat-sort-header>Logo</mat-header-cell>
+      <mat-cell *matCellDef="let row">
+        <img
+          [src]="getCompanyImage(row)"
+          alt="Eira Logo"
+          width="32px"
+          height="32px"
+        />
+      </mat-cell>
+    </ng-container>
+
+    <ng-container matColumnDef="action">
+      <mat-header-cell *matHeaderCellDef mat-sort-header></mat-header-cell>
+      <mat-cell *matCellDef="let row">
+        <button
+          mat-icon-button
+          matTooltip="Click to Edit"
+          class="iconbutton"
+          (click)="editCompany(row)"
+        >
+          <mat-icon aria-label="Edit">edit</mat-icon>
+        </button>
+      </mat-cell>
+    </ng-container>
+
+    <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+    <mat-row
+      *matRowDef="let row; let even = even; columns: displayedColumns"
+      [ngClass]="{ gray: even }"
+    ></mat-row>
+  </mat-table>
+
+  <mat-paginator
+    #paginator
+    [length]="dataSource?.data.length"
+    [pageIndex]="0"
+    [pageSize]="10"
+    [pageSizeOptions]="[5, 10, 20, 25]"
+  >
+  </mat-paginator>
+</div>

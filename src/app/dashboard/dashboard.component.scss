@@ -1,0 +1,104 @@
+.dashboard-content {
+  padding: 3%;
+  height: 88vh !important;
+  margin: auto;
+  overflow: hidden;
+  margin-top: 0;
+}
+
+
+mat-card {
+  padding: 0 !important;
+  bottom: 20%;
+  overflow: hidden;
+  cursor: pointer;
+  
+  mat-card-header {
+    padding-top: 10px !important;
+    display: flex;
+    align-items: center;
+    
+    mat-card-title {
+      background-color: gray;
+      padding: 0.3em 0.8em;
+      border-radius: 100vw;
+      color: white;
+      padding-left: 2em;
+      margin-left: -1.8em;
+    }
+  }
+
+  mat-card-content {
+    padding: 5px !important;
+    color: white;
+  }
+
+  &.siteCount {
+    background-color: #ffc233; 
+  }
+  &.siteCapacity {
+    background-color: #87CEEB;
+    mat-card-content {
+      font-size: 3em !important;
+      margin-top: 10px;
+    }
+  }
+  &.events {
+    background-color: #139dc7;
+    mat-card-content {
+      font-size: 3em !important;
+      margin-top: 10px;
+    }
+  }
+  &.tickets {
+    background-color: #ffc0cb;
+    mat-card-content {
+      font-size: 3em !important;
+      margin-top: 10px;
+    }
+  }
+  &.siteStatus {
+    background-color: #6092ee;
+    
+    mat-card-content {
+      font-size: 2em !important;
+    }
+  }
+}
+
+
+.mat-card.maps {
+  color: black;
+  background-color: white;
+}
+
+
+.card-contents {
+  height: 85vh;
+}
+
+.js-plotly-plot .plotly .main-svg {
+  overflow: visible;
+}
+.js-plotly-plot .plotly .main-svg .legend {
+  transform: translate(640px, 100px);
+}
+
+agm-map {
+  height: 500px !important;
+  width: 480px !important;
+}
+
+  
+.map-content {
+  margin-top: 4em;
+}
+
+.siteTotalCount {
+  font-size: 3em !important;
+}
+
+.siteCapacity {
+  // font-size: 3em !important;
+
+}

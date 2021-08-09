@@ -1,0 +1,22 @@
+@use '~@angular/material' as mat;
+@use "src/eira-theme" as *;
+
+
+::ng-deep .mat-form-field .mat-input-element {
+  color:mat.get-color-from-palette($primary, A400) !important;
+
+}
+::ng-deep .mat-form-field .mat-form-field-label {
+  color:mat.get-color-from-palette($primary, A400) !important;
+  font-size: 1.1em!important;
+  top: 1.4em;
+}
+::ng-deep .mat-form-field .mat-form-field-underline {
+  background-color:mat.get-color-from-palette($primary, A400) !important;
+}
+::ng-deep .mat-form-field .mat-form-field-ripple {
+  background-color:mat.get-color-from-palette($primary, A400) !important;
+}
+::ng-deep .mat-form-field .mat-form-field-required-marker {
+  color:mat.get-color-from-palette($primary, A400) !important;
+}

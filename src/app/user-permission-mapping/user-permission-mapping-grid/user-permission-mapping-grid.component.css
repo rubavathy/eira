@@ -1,0 +1,43 @@
+.btn-allow {
+  background-color: aquamarine;
+  border: none;
+  border-radius: 0.5rem;
+}
+.permission-text {
+  font-family: Roboto, 'Helvetica Neue', sans-serif;
+}
+.green {
+  color: green;
+}
+.btn-denied {
+  background-color: lightcoral;
+  border: none;
+  border-radius: 0.5rem;
+}
+
+.red {
+  color: darkred;
+}
+
+.content {
+  position: absolute;
+  left: 1rem;
+}
+
+.grid {
+  border: 2px grey solid !important;
+}
+
+.rignt-border {
+  border-right: 2px grey solid;
+}
+
+.grid-heading {
+  font-size: 0.9rem;
+  font-weight: 500;
+}
+
+mat-grid-tile {
+  box-sizing: border-box;
+  border: 1px grey solid;
+}

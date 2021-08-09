@@ -1,0 +1,28 @@
+.content-container{
+  min-height: 100vh;
+}
+
+/* form{
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  justify-content:center;
+  padding: 3em;
+  margin:5px;
+  align-items: flex-start;
+} */
+/*
+.buttons{
+  width: 100vw;
+  text-align: center;
+  margin:5px;
+}
+
+button{
+  margin:-1em 1em;
+}
+
+mat-form-field{
+    width: 25vw;
+    margin-top:-1em;
+} */

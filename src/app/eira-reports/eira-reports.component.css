@@ -1,0 +1,13 @@
+.form-fields,.buttons{
+  display: flex;
+  justify-content: center;
+}
+
+button{
+  margin: 1em 2em;
+  width: 8%;
+}
+
+mat-form-field{
+  margin:-1em 2em 0 2em;
+}

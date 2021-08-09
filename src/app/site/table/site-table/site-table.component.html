@@ -1,0 +1,95 @@
+<div class="mat-elevation-z8">
+  <div fxLayout="row">
+    <div fxFlex="56" fxFlexOffset="15" fxLayoutAlign="center center">
+      <div class="mat-h2 table-heading"><u>Site List</u></div>
+    </div>
+    <mat-form-field fxFlex fxLayoutAlign="flex-end center">
+      <input
+        matInput
+        type="text"
+        (keyup)="doFilter($event.target.value)"
+        placeholder="Filter"
+      />
+    </mat-form-field>
+  </div>
+  <mat-table
+    class="full-width-table"
+    matSort
+    aria-label="Elements"
+    [dataSource]="dataSource"
+  >
+    <ng-container matColumnDef="siteCode">
+      <mat-header-cell *matHeaderCellDef mat-sort-header
+        >Site Code</mat-header-cell
+      >
+      <mat-cell *matCellDef="let row">{{ row.siteCode }}</mat-cell>
+    </ng-container>
+
+    <ng-container matColumnDef="siteName">
+      <mat-header-cell *matHeaderCellDef mat-sort-header
+        >Site Name</mat-header-cell
+      >
+      <mat-cell *matCellDef="let row">{{ row.siteName }}</mat-cell>
+    </ng-container>
+
+    <!-- Name Column -->
+    <ng-container matColumnDef="customerName">
+      <mat-header-cell *matHeaderCellDef mat-sort-header
+        >Customer Name</mat-header-cell
+      >
+      <mat-cell *matCellDef="let row">{{ row.customerName }}</mat-cell>
+    </ng-container>
+
+    <ng-container matColumnDef="siteType">
+      <mat-header-cell *matHeaderCellDef mat-sort-header
+        >Site Type</mat-header-cell
+      >
+      <mat-cell *matCellDef="let row">{{ row.siteType }}</mat-cell>
+    </ng-container>
+
+    <ng-container matColumnDef="location">
+      <mat-header-cell *matHeaderCellDef mat-sort-header
+        >Location</mat-header-cell
+      >
+      <mat-cell *matCellDef="let row">{{ row.city + ", " +  row.state }} </mat-cell>
+    </ng-container>    <ng-container matColumnDef="active">
+      <mat-header-cell *matHeaderCellDef mat-sort-header
+        >Site Status</mat-header-cell
+      >
+      <mat-cell *matCellDef="let row">
+        {{ row.active ? 'Active' : 'In-Active' }}
+      </mat-cell>
+    </ng-container>
+
+    <ng-container matColumnDef="action">
+      <mat-header-cell *matHeaderCellDef mat-sort-header
+        >Actions</mat-header-cell
+      >
+      <mat-cell *matCellDef="let row">
+        <button
+          mat-icon-button
+          matTooltip="Click to Edit"
+          class="iconbutton"
+          (click)="editSite(row)"
+        >
+          <mat-icon aria-label="Edit">edit</mat-icon>
+        </button>
+      </mat-cell>
+    </ng-container>
+
+    <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+    <mat-row
+      *matRowDef="let row; let even = even; columns: displayedColumns"
+      [ngClass]="{ gray: even }"
+    ></mat-row>
+  </mat-table>
+
+  <mat-paginator
+    #paginator
+    [length]="dataSource?.data.length"
+    [pageIndex]="0"
+    [pageSize]="10"
+    [pageSizeOptions]="[5, 10, 20, 25]"
+  >
+  </mat-paginator>
+</div>

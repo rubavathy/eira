@@ -1,0 +1,191 @@
+<div class="dashboard-content" fxLayout="column" fxLayoutGap="24px">
+  <div fxFill fxLayout="row" fxFlex>
+    <div fxLayout="row" fxLayoutAlign="center none" fxFlex="100">
+      <div fxFlex="100" fxLayout="column">
+        <div fxFlex="5" class="primary"></div>
+        <div fxFlex="95">
+          <div fxLayout="row" fxLayout.xs="column" fxLayoutGap="24px">
+            <div
+              fxLayout="column"
+              fxLayoutGap="24px"
+              fxFlex="45"
+              fxFlex.xs="100"
+              class="card-contents"
+            >
+
+
+            
+            <div
+            fxFlex="35"
+            fxLayout="row"
+            fxLayout.sm="row"
+            fxLayout.xs="column"
+            fxLayoutGap="24px"
+          >
+
+          <mat-card fxFlex="100" class="mat-elevation-z8 siteStatus">
+            <mat-card-header class="mat-card3">
+              <mat-card-title>Site Status</mat-card-title>
+            </mat-card-header>
+            <mat-card-content 
+            fxLayout="row" routerLink="/eira-tkt-search" fxLayoutAlign="space-around center">
+              <div fxLayout="column" fxFlex="20" fxLayoutGap="20px" fxLayoutAlign="space-around center">
+                <div>Active</div>
+                <div>20</div>
+              </div>
+
+              
+              <div fxLayout="column" fxFlex="20" fxLayoutGap="20px" fxLayoutAlign="space-around center">
+                <div>Warning</div>
+                <div>5</div>
+              </div>
+
+              
+              <div fxLayout="column" fxFlex="20" fxLayoutGap="20px" fxLayoutAlign="space-around center">
+                <div>Down</div>
+                <div>8</div>
+              </div>
+
+              
+              <div fxLayout="column" fxFlex="20" fxLayoutGap="20px" fxLayoutAlign="space-around center">
+                <div>Offline</div>
+                <div>2</div>
+              </div>
+
+              
+               
+              
+              
+            </mat-card-content>
+          </mat-card>
+          </div>
+              <div
+                fxFlex="25"
+                fxLayout="row"
+
+                fxLayout.sm="row"
+                fxLayout.xs="column"
+                fxLayoutGap="24px"
+              >
+                <mat-card
+                  fxFlex="50"
+                  fxFlex.sm="100"
+                  fxFlex.xs="100"
+                  class="mat-elevation-z8 siteCount"
+                >
+                  <mat-card-header class="mat-card1">
+                    <mat-card-title>Sites</mat-card-title>
+                  </mat-card-header>
+                  <mat-card-content fxLayoutAlign="center center"  fxLayout="row"
+                      [style.margin-left]="'10px'"
+                      
+                      [style.margin-right]="'10px'" routerLink="/site">
+
+                    <div fxFlex="50" class="siteTotalCount">
+
+
+                        {{ totalCount }} 
+                    </div>
+                    <div fxFlex="50" fxLayoutAlign="end" fxLayout="column" fxLayoutAlign="center end">
+                      <span *ngFor="let plant of plantTypes"  fxFlex>
+                         {{ plant }} 
+
+                      </span>
+
+                    </div>
+
+
+                  </mat-card-content>
+                </mat-card>
+
+                <mat-card
+                  fxFlex="50"
+                  fxFlex.sm="100"
+                  fxFlex.xs="100"
+                  class="mat-elevation-z8 siteCapacity"
+                >
+                  <mat-card-header class="mat-card1">
+                    <mat-card-title>Total Capacity</mat-card-title>
+                  </mat-card-header>
+                  <mat-card-content routerLink="/site" fxLayoutAlign="center center" 
+                  
+                  fxLayout="column" class="siteCapacity">
+
+                       560 MW                      
+                  </mat-card-content>
+                </mat-card>
+              </div>
+
+
+         
+              <div
+                fxFlex="25"
+                fxLayout="row"
+                fxLayout.sm="row"
+                fxLayout.xs="column"
+                fxLayoutGap="24px"
+              >
+                <mat-card fxFlex="50" class="mat-elevation-z8 tickets">
+                  <mat-card-header class="mat-card3">
+                    <mat-card-title>Open Tickets</mat-card-title>
+                  </mat-card-header>
+                  <mat-card-content fxLayout="column" routerLink="/eira-tkt-search"
+                  
+                  fxLayoutAlign="center center" 
+                  
+                  fxLayout="column" >
+                  
+                        {{ ticketCount }}
+                    
+                  </mat-card-content>
+                </mat-card>
+
+                <mat-card fxFlex="50" class="mat-elevation-z8 events">
+                  <mat-card-header class="mat-card3">
+                    <mat-card-title>Events</mat-card-title>
+                  </mat-card-header>
+                  <mat-card-content fxlayout="column" fxLayoutAlign="center center" 
+                  
+                  fxLayout="column">
+                    Active
+                  </mat-card-content>
+                </mat-card>
+              </div>
+
+            
+
+            </div>
+            <div fxLayout="row" fxFlex="55" fxFlex.xs="100"  class="map-content">
+              <mat-card
+                fxFlex="100"
+                fxFlex.sm="100"
+                fxFlex.xs="100"
+                class="mat-elevation-z8 maps"
+              >
+                <mat-card-content>
+                  <agm-map [latitude]='latitude' [longitude]='longitude'   #agm
+
+                  [fitBounds]="true"
+                  >
+                    <agm-marker  *ngFor="let data of siteDetails; let i = index" [latitude]="data.latitude"
+                    [longitude]="data.longitude"
+                    [agmFitBounds]="true"
+                    (mouseOver)="onMouseOver(infoWindow,$event)"
+                   (mouseOut)="onMouseOut(infoWindow, $event)"
+                    >
+
+
+                    <agm-info-window [disableAutoPan]="false" #infoWindow>
+                      <strong>{{data.siteName}}</strong>
+                    </agm-info-window>
+                    </agm-marker>
+                  </agm-map>
+                </mat-card-content>
+              </mat-card>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,38 @@
+.container{
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 98vh;
+  width: auto;
+}
+
+mat-card{
+  width: 35vw;
+  padding: 2em 5em;
+  height: auto;
+
+}
+svg:first-of-type{
+  margin-top: 1em ;
+  margin-bottom: 2em;
+  height: 55%;
+  width: 80%;
+}
+
+button{
+  border-radius: 50px ;
+}
+
+mat-card-content{
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+#Ellipse_26{
+   display: flex;
+   align-items: center;
+   justify-content: center;
+   fill: aqua;
+}
+

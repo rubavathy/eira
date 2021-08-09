@@ -1,0 +1,46 @@
+<div class="container">
+  <div class="mat-h2 primary">Reports</div>
+  <div class="mat-h3 primary">Report Details</div>
+  <div class="form-fields">
+    <mat-form-field >
+      <mat-label>Enter a date range</mat-label>
+      <mat-date-range-input [rangePicker]="picker">
+        <input matStartDate placeholder="Start date" />
+        <input matEndDate placeholder="End date" />
+      </mat-date-range-input>
+      <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+      <mat-date-range-picker #picker></mat-date-range-picker>
+    </mat-form-field>
+
+    <mat-form-field >
+      <mat-label>Site Name</mat-label>
+      <mat-select>
+        <mat-option *ngFor="let list of lists" [value]="list.value">
+          {{ list.viewValue }}
+        </mat-option>
+      </mat-select>
+    </mat-form-field>
+
+    <mat-form-field >
+      <mat-label>Report Type</mat-label>
+      <mat-select>
+        <mat-option *ngFor="let list of lists" [value]="list.value">
+          {{ list.viewValue }}
+        </mat-option>
+      </mat-select>
+    </mat-form-field>
+
+    <mat-form-field >
+      <mat-label>Category</mat-label>
+      <mat-select>
+        <mat-option *ngFor="let list of lists" [value]="list.value">
+          {{ list.viewValue }}
+        </mat-option>
+      </mat-select>
+    </mat-form-field>
+  </div>
+  <div class="buttons">
+    <button mat-raised-button color="accent">View</button>
+    <button mat-raised-button color="warn">Reset</button>
+  </div>
+</div>
