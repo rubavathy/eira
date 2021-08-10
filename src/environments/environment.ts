@@ -5,7 +5,9 @@
 export const environment = {
   production: false,
   //apiUrl: "http://13.127.108.179:8088/EiraAdmin",
-   apiUrl: "http://localhost:8080",
+    apiUrl: "http://13.232.80.90:8080/EiraAdmin"
+
+  // apiUrl: "http://localhost:8080",
 };
 
 /*
